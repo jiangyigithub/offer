@@ -1,6 +1,14 @@
 0. Prerequisites:
 - install ROS foxy .
 https://docs.ros.org/en/foxy/Installation/Linux-Install-Debians.html
+  1. start by source command
+    source /opt/ros/foxy/local_setup.bash
+  2. set ros2 as default on linux
+    echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
+  3. check default system environment
+    gedit ~/.bashrc
+  4. environment vairable
+    printenv | grep -i ROS
 - extension packages
     sudo apt update
     sudo apt install python3-colcon-common-extensions
@@ -24,7 +32,7 @@ https://docs.ros.org/en/foxy/Tutorials/Turtlesim/Introducing-Turtlesim.html
 - Understanding ROS 2 nodes
 https://docs.ros.org/en/foxy/Tutorials/Understanding-ROS2-Nodes.html
 
-1. package
+3. package
 (key words: CMakeLists.txt, package.xml)
 Creating your first ROS 2 package
 https://docs.ros.org/en/foxy/Tutorials/Creating-Your-First-ROS2-Package.html
@@ -32,6 +40,9 @@ https://docs.ros.org/en/foxy/Tutorials/Creating-Your-First-ROS2-Package.html
 4. build(build, install, log)
 - Using colcon to build packages
 https://docs.ros.org/en/foxy/Tutorials/Colcon-Tutorial.html
+colcon list
+colcon graph
+rm -rf install log build
 
 5. source
 When colcon has completed building successfully, the output will be in the install directory. Before you can use any of the installed executables or libraries, you will need to add them to your path and library paths. colcon will have generated bash/bat files in the install directory to help setup the environment. These files will add all of the required elements to your path and library paths as well as provide any bash or shell commands exported by packages.
@@ -70,8 +81,10 @@ Using rqt Tools for Analysis:https://industrial-training-master.readthedocs.io/e
     For the publisher node, spinning meant starting the timer, but for the subscriber it simply means preparing to receive messages whenever they come
       - configure
       - advertiseOutputs() --> create_publisher<messages>(topic,...)
-      - subscribeToInputs() --> create_subscription<messages>(topic,callback,...)
-      - runTask() --> create_wall_timer(cycle_time,callback)
+      - subscribeToInputs() --> create_subscription<messages>(topic,rclQoS,getInputCallback)
+      - runTask() --> create_wall_timer(cycle_time,publishCallback)
+        --> fuse()
+        --> publish()
     rclcpp:https://docs.ros.org/en/foxy/Tutorials/Tf2/Adding-A-Frame-Cpp.html
     - ament_cmake user documentation
     https://docs.ros.org/en/foxy/How-To-Guides/Ament-CMake-Documentation.html?highlight=cmake
