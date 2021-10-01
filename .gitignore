@@ -40,7 +40,7 @@ build.previous/
 ### File endings to be ignored globally
 *.tmp
 *.bak
-*.zip
+# *.zip
 
 # created by AEEE
 .plbluearx
